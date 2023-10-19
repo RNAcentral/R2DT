@@ -12,6 +12,7 @@ limitations under the License.
 """
 
 import filecmp
+import glob
 import os
 import unittest
 from dataclasses import dataclass
@@ -93,6 +94,8 @@ class R2dtTestCase(unittest.TestCase):
             print(f"Test results can be found in {self.test_results}")
         else:
             self.delete_folder(self.test_results)
+        # pylint: disable=expression-not-assigned
+        [os.remove(file) for file in glob.glob("examples/*.ssi")]
 
     def create_webpage(
         self, filename: str, before, after, comparison_result: ComparisonResult
@@ -432,6 +435,7 @@ class TestGtrnadbMitoVert(R2dtTestCase):
         "URS0000333A94_392897-M_SerTGA.colored.svg",
         "URS0000043FFB_392897-M_SerGCT.colored.svg",
         "URS0000247C4D_392897-M_Cys.colored.svg",
+        "URS0002616B70_9606-M_SerGCT.colored.svg",
     ]
 
     def test_examples(self):
